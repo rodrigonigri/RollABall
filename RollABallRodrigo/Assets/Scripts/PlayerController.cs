@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public GameObject RestartButton;
+    public GameObject timer;
+
 
     private Rigidbody rb;
     private int count;
@@ -23,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
+        RestartButton.SetActive(false);
     }
 
     private void OnMove(InputValue movementValue)
@@ -37,7 +42,14 @@ public class PlayerController : MonoBehaviour
         countText.text = "Count: " + count.ToString();
         if(count >= 8){
             winTextObject.SetActive(true);
+            RestartButton.SetActive(true);
+            timer.SetActive(false);
+            
         }
+    }
+
+    public void restartGame(){
+        SceneManager.LoadScene(0);
     }
 
     private void FixedUpdate()
